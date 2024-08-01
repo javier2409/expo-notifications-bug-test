@@ -7,6 +7,14 @@ import { ThemedView } from '@/components/ThemedView';
 import * as Notifications from 'expo-notifications';
 import {useEffect} from "react";
 
+Notifications.setNotificationHandler({
+  handleNotification: async (notification) => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 export default function HomeScreen() {
 
   useEffect(() => {
@@ -20,6 +28,11 @@ export default function HomeScreen() {
           console.log('Expo push token', token);
         });
       }
+
+      Notifications.setNotificationChannelAsync('default', {
+        name: "Default",
+        importance: Notifications.AndroidImportance.MAX,
+      })
     })
 
   }, []);
